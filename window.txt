@@ -11,4 +11,7 @@ if __name__ == "__main__":
 	app.mainloop()
 
 
+
 我是master
+我是pointer
+
