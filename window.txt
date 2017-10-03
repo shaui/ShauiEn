@@ -9,3 +9,6 @@ if __name__ == "__main__":
 	root = Tk()
 	app = test(master = root)
 	app.mainloop()
+
+
+§Ú¬Omaster
