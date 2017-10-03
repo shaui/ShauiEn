@@ -1,0 +1,52 @@
+package main;
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Main {
+	private static File colorimg = new File("./ColorImage");
+	private static File grayimg = new File("./GrayImage");
+	private static File colorimglist[] = colorimg.listFiles();
+	@SuppressWarnings("unused")
+	private static File grayimglist[] = grayimg.listFiles();
+	
+	public static void main(String[] args) {
+		check();
+	}
+	
+	private static void check() {
+		if(colorimg.exists() && grayimg.exists()) {
+			colorTransform();
+		}
+		else {
+			colorimg.mkdir();
+			grayimg.mkdir();
+		}
+	}
+	
+	private static void colorTransform(){
+		for(int i = 0;i < colorimglist.length;i++) {
+			BufferedImage bi;
+			try {
+				bi = ImageIO.read(colorimglist[i]);
+				int width = bi.getWidth(), height = bi.getHeight();
+				for(int x = 0;x < width;x++) {
+					for(int y = 0;y < height;y++) {
+						Color color = new Color(bi.getRGB(x, y));
+						int R = color.getRed(), G = color.getGreen(), B = color.getBlue();
+						int gray = (int) (0.299*R+0.587*G+0.114*B);
+						Color grayColor = new Color(gray, gray, gray);
+						bi.setRGB(x, y, grayColor.getRGB());
+					}
+				}
+				ImageIO.write(bi, "jpg" , new File("./GrayImage/Gray_" + colorimglist[i].getName()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		}
+	}
+}
