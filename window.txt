@@ -1,0 +1,11 @@
+from tkinter import *
+
+
+class test(Frame):
+	def __init__(self, master = None):
+		Frame.__init__(self, master)
+	
+if __name__ == "__main__":
+	root = Tk()
+	app = test(master = root)
+	app.mainloop()
